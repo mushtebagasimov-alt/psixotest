@@ -22,23 +22,8 @@ const CURRENCY = "USD"; // PayPal AZN desteklemir, USD istifade edirik
 app.use(cors());
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "https://cdn.tailwindcss.com",
-          "https://www.paypal.com",
-          "https://www.sandbox.paypal.com",
-        ],
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-        fontSrc: ["'self'", "https://fonts.gstatic.com"],
-        frameSrc: ["https://www.paypal.com", "https://www.sandbox.paypal.com"],
-        connectSrc: ["'self'", "https://www.paypal.com", "https://www.sandbox.paypal.com"],
-        imgSrc: ["'self'", "data:", "https://www.paypalobjects.com", "https://t.paypal.com"],
-      },
-    },
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
   })
 );
 app.use(express.json());
