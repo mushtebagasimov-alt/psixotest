@@ -15,8 +15,8 @@ const PAYPAL_API = PAYPAL_MODE === "live"
   ? "https://api-m.paypal.com"
   : "https://api-m.sandbox.paypal.com";
 
-const PRICE = "5.00";
-const CURRENCY = "USD"; // PayPal AZN desteklemir, USD istifade edirik
+const PRICE = "2.95";
+const CURRENCY = "USD"; // 5 AZN ≈ $2.95 USD (PayPal AZN desteklemir)
 
 // --- Middleware ---
 app.use(cors());
