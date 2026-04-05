@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Psixoloji Sağlamlıq Testi | Stress Analizi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+            color: #1e293b;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .screen { display: none; animation: fadeIn 0.4s ease-out forwards; }
+        .screen.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .option-btn {
+            transition: all 0.2s;
+            border: 2px solid #e2e8f0;
+            background: white;
+        }
+        .option-btn:active { transform: scale(0.97); }
+        .option-btn.selected {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        .progress-bg { background-color: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #34d399, #10b981); height: 100%; width: 0%; transition: width 0.3s ease; }
+
+        .blur-content { filter: blur(8px); user-select: none; transition: filter 0.5s ease; }
+        .reveal-content { filter: blur(0); }
+
+        .btn-primary {
+            background-color: #0ea5e9;
+            color: white;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.2);
+        }
+        .btn-primary:hover { background-color: #0284c7; transform: translateY(-1px); }
+        .btn-primary:active { transform: translateY(1px); }
+
+        #paypal-button-container { min-height: 55px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- EKRAN 1: GIRIS -->
+    <div id="screen-start" class="screen active w-full max-w-md flex-col items-center min-h-[80vh]">
+        <div class="glass-card rounded-3xl p-8 w-full text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-sky-400"></div>
+
+            <div class="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </div>
+
+            <h1 class="text-2xl font-bold text-slate-800 mb-2">Psixoloji Durum Testi</h1>
+            <p class="text-slate-500 text-sm mb-8 leading-relaxed">
+                Hazırkı stress, yuxu və emosional vəziyyətinizi peşəkar metodlarla yoxlayın.
+                <br><span class="font-semibold text-emerald-600">Sadəcə 2 dəqiqə.</span>
+            </p>
+
+            <div class="space-y-3 text-left bg-slate-50 p-4 rounded-xl mb-8 border border-slate-100">
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>20 elmi suallıq qiymətləndirmə</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <span>100% anonim və məxfi</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span>Detallı bal hesablaması</span>
+                </div>
+            </div>
+
+            <button onclick="startTest()" class="btn-primary w-full py-4 rounded-xl text-lg font-semibold">
+                Testi Başla
+            </button>
+
+            <p class="text-xs text-slate-400 mt-4">
+                Bu test diaqnoz qoymur, ancaq ümumi fikir verir.
+            </p>
+        </div>
+    </div>
+
+    <!-- EKRAN 2: SUALLAR -->
+    <div id="screen-test" class="screen w-full max-w-md flex-col min-h-screen py-6">
+        <div class="flex justify-between items-center mb-4 px-1">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Sual <span id="current-q-num">1</span>/20</span>
+            <button onclick="location.reload()" class="text-xs text-red-400 font-medium">Bitir</button>
+        </div>
+
+        <div class="progress-bg w-full mb-8">
+            <div class="progress-fill" id="progress-bar"></div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 w-full mb-6 shadow-lg border border-white">
+            <h2 id="question-text" class="text-lg font-medium text-slate-800 leading-snug mb-8 min-h-[3.5rem] flex items-center">
+                Sual yuklenir...
+            </h2>
+
+            <div class="grid grid-cols-1 gap-3" id="options-container"></div>
+        </div>
+
+        <p class="text-center text-xs text-slate-400 mt-auto pb-4">
+            Cavabiniz yadda saxlanilir
+        </p>
+    </div>
+
+    <!-- EKRAN 3: NETICE (KILIDLI / ODENIS) -->
+    <div id="screen-result" class="screen w-full max-w-md flex-col items-center min-h-[80vh]">
+        <div class="glass-card rounded-3xl p-8 w-full text-center relative overflow-hidden border border-white">
+
+            <!-- Blur olunmus netice -->
+            <div id="result-area" class="blur-content select-none">
+                <div class="mb-6">
+                    <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 mb-4 relative">
+                        <span id="score-display" class="text-4xl font-bold text-slate-800">0</span>
+                        <svg class="absolute w-24 h-24" style="animation: spin 15s linear infinite;" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="283" stroke-dashoffset="70" stroke-linecap="round" transform="rotate(-90 50 50)" />
+                        </svg>
+                    </div>
+                    <h3 id="result-title" class="text-xl font-bold text-slate-800 mb-2">Netice yuklenir...</h3>
+                    <p id="result-desc" class="text-slate-500 text-sm px-4">Analiz aparilir...</p>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-4 text-left space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Stress seviyyesi:</span>
+                        <span class="font-bold text-slate-700" id="res-stress">-</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Yuxu keyfiyyeti:</span>
+                        <span class="font-bold text-slate-700" id="res-sleep">-</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-500">Umumi veziyyet:</span>
+                        <span class="font-bold text-emerald-600" id="res-status">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kilidli overlay -->
+            <div id="lock-overlay" class="absolute inset-0 z-10 bg-white/80 backdrop-blur-md flex flex-col items-center justify-center p-6 rounded-3xl transition-opacity duration-500">
+                <div class="bg-amber-100 p-3 rounded-full mb-4">
+                    <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">Tam netice kilidlidir</h3>
+                <p class="text-slate-500 text-sm text-center mb-6 leading-relaxed">
+                    Detalli psixoloji analizinizi ve sexsi tovsiyelerinizi gormek ucun kiçik bir odenis teleb olunur.
+                </p>
+
+                <div class="bg-slate-50 w-full p-3 rounded-lg mb-6 border border-slate-200">
+                    <div class="text-xs text-slate-400 line-through text-left">Standart qiymet: $10.00</div>
+                    <div class="text-left font-bold text-slate-800 text-lg">Xususi qiymet: <span class="text-emerald-600">$5.00</span></div>
+                </div>
+
+                <!-- PayPal Button Container -->
+                <div id="paypal-button-container" class="w-full mb-3"></div>
+
+                <div id="payment-error" class="hidden text-red-500 text-sm mt-2"></div>
+                <p class="text-xs text-slate-400 mt-4">Tehlukesiz odenis &bull; Derhal giris</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EKRAN 4: ACILMIS NETICE -->
+    <div id="screen-success" class="screen w-full max-w-md flex-col items-center min-h-[80vh]">
+        <div class="glass-card rounded-3xl p-8 w-full text-center border border-white">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            </div>
+
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Tebrikler!</h2>
+            <p class="text-slate-500 mb-8">Senin tam psixoloji profilin hazirdir.</p>
+
+            <div class="space-y-6 text-left">
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                    <span class="font-medium text-slate-600">Umumi bal:</span>
+                    <span class="text-2xl font-bold text-emerald-600" id="final-score">0</span>
+                </div>
+
+                <div id="final-analysis-box" class="p-5 bg-emerald-50 border border-emerald-100 rounded-xl">
+                    <h4 class="font-bold text-emerald-800 mb-2" id="final-level-title">Seviyye</h4>
+                    <p class="text-sm text-emerald-700 leading-relaxed" id="final-analysis-text">Tehlil metni...</p>
+                </div>
+
+                <!-- Detalli kateqoriya balları -->
+                <div class="p-5 bg-slate-50 border border-slate-100 rounded-xl space-y-3">
+                    <h4 class="font-bold text-slate-700 mb-1">Kateqoriyalar uzre</h4>
+                    <div id="category-details" class="space-y-2"></div>
+                </div>
+
+                <!-- Tovsiyeler -->
+                <div class="p-5 bg-sky-50 border border-sky-100 rounded-xl">
+                    <h4 class="font-bold text-sky-800 mb-2">Sexsi tovsiyeler</h4>
+                    <ul id="recommendations" class="text-sm text-sky-700 leading-relaxed space-y-2 list-disc list-inside"></ul>
+                </div>
+            </div>
+
+            <button onclick="location.reload()" class="mt-8 w-full py-3 border border-slate-200 rounded-xl text-slate-600 font-medium hover:bg-slate-50 transition-colors">
+                Testi yeniden et
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- SUALLAR (yazi sehvleri duzeldilmis) ---
+        const questions = [
+            { id: 1, text: "Son zamanlarda tez-tez əsəbiləşirsinizmi?", cat: "stress" },
+            { id: 2, text: "Yuxuya getməkdə çətinlik çəkirsinizmi?", cat: "sleep" },
+            { id: 3, text: "Kiçik problemlər üzündən çox narahat olursunuzmu?", cat: "stress" },
+            { id: 4, text: "Sabahkı günün nəticələri haqqında çox düşünürsünüzmü?", cat: "anxiety" },
+            { id: 5, text: "Dinc dayana bilmir, əliniz-ayağınız yerində durmur?", cat: "physical" },
+            { id: 6, text: "Cəmiyyət arasına qarışmaqdan çəkinirsinizmi?", cat: "social" },
+            { id: 7, text: "Tez yorulursunuz və enerjiniz azalırmı?", cat: "physical" },
+            { id: 8, text: "Hər şeyin əleyhinizə getdiyi barədə düşünürsünüzmü?", cat: "mood" },
+            { id: 9, text: "Bədəninizdə izaholunmaz ağrılar olurmu (baş, mədə)?", cat: "physical" },
+            { id: 10, text: "Sevdiyiniz fəaliyyətlərdən zövq almırsınızmı?", cat: "mood" },
+            { id: 11, text: "Bağırsaq sistemində problem (qarın ağrısı, qəbizlik) yaşayırsınızmı?", cat: "physical" },
+            { id: 12, text: "Tək qalmaqdan qorxursunuzmu?", cat: "anxiety" },
+            { id: 13, text: "Diqqətinizi toplamaqda çətinlik çəkirsinizmi?", cat: "focus" },
+            { id: 14, text: "Özünüzə inamınız azalıbmı?", cat: "self-esteem" },
+            { id: 15, text: "Yuxudan tez-tez oyanırsınızmı?", cat: "sleep" },
+            { id: 16, text: "Qərar vermək sizin üçün çox çətindirmi?", cat: "focus" },
+            { id: 17, text: "Ürək döyüntünüz tez-tez sürətlənirmi?", cat: "physical" },
+            { id: 18, text: "Keçmişdə etdiyiniz səhvlər üzündən əziyyət çəkirsinizmi?", cat: "mood" },
+            { id: 19, text: "İnsanların sizin haqqınızda nə düşündüyünə çox əhəmiyyət verirsinizmi?", cat: "social" },
+            { id: 20, text: "Həyatınızdakı dəyişikliklərə uyğunlaşa bilmirsinizmi?", cat: "stress" }
+        ];
+
+        const options = [
+            { val: 0, label: "Heç vaxt", desc: "Bu mənə uyğun gəlmir" },
+            { val: 1, label: "Bəzən", desc: "Nadir hallarda" },
+            { val: 2, label: "Tez-tez", desc: "Həftədə bir neçə dəfə" },
+            { val: 3, label: "Demək olar ki, həmişə", desc: "Gündəlik təkrarlanır" }
+        ];
+
+        const categoryNames = {
+            stress: "Stress",
+            sleep: "Yuxu",
+            anxiety: "Narahatlıq",
+            physical: "Fiziki əlamətlər",
+            social: "Sosial",
+            mood: "Əhval-ruhiyyə",
+            focus: "Diqqət",
+            "self-esteem": "Özünəinam"
+        };
+
+        // --- STATE ---
+        let currentQuestionIndex = 0;
+        let userScores = new Array(questions.length).fill(-1);
+
+        // --- EKRAN FUNKSIYALARI ---
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function startTest() {
+            currentQuestionIndex = 0;
+            userScores.fill(-1);
+            renderQuestion();
+            showScreen('screen-test');
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            document.getElementById('current-q-num').innerText = currentQuestionIndex + 1;
+            document.getElementById('question-text').innerText = q.text;
+
+            const pct = ((currentQuestionIndex) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-4 rounded-xl text-left flex flex-col ${userScores[currentQuestionIndex] === opt.val ? 'selected' : ''}`;
+                btn.onclick = () => selectOption(opt.val);
+
+                btn.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-slate-700">${opt.label}</span>
+                        <span class="text-xs font-bold text-slate-300">${opt.val}/3</span>
+                    </div>
+                    <span class="text-xs text-slate-400 mt-1">${opt.desc}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectOption(val) {
+            userScores[currentQuestionIndex] = val;
+            renderQuestion();
+
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                    renderQuestion();
+                } else {
+                    finishTest();
+                }
+            }, 400);
+        }
+
+        function getCategoryScores() {
+            const cats = {};
+            questions.forEach((q, i) => {
+                if (!cats[q.cat]) cats[q.cat] = { total: 0, max: 0 };
+                cats[q.cat].total += (userScores[i] === -1 ? 0 : userScores[i]);
+                cats[q.cat].max += 3;
+            });
+            return cats;
+        }
+
+        function finishTest() {
+            const validScores = userScores.map(s => s === -1 ? 0 : s);
+            const totalScore = validScores.reduce((a, b) => a + b, 0);
+            const maxScore = questions.length * 3;
+
+            let title, desc, statusText, stressStatus, sleepStatus;
+
+            if (totalScore <= 18) {
+                title = "Rahat və balanslı vəziyyət";
+                desc = "Təbriklər! Psixoloji durumunuz çox yaxşıdır. Stress səviyyəniz aşağıdır və həyatla barışıqsınız. Bu vəziyyəti qorumaq üçün aktiv həyat tərzi davam etdirin.";
+                statusText = "Normal";
+                stressStatus = "Aşağı";
+                sleepStatus = "Yaxşı";
+            } else if (totalScore <= 38) {
+                title = "Yüngül stress və yorğunluq";
+                desc = "Hazırda bir qədər gərginsiniz. Bəzi sahələrdə (yuxu və ya diqqət) yavaş düşüş mümkündür. Daha çox istirahət etməyi və hobbiyə vaxt ayırmağı tövsiyə edirik.";
+                statusText = "Müsbət (Diqqət tələb olunur)";
+                stressStatus = "Orta";
+                sleepStatus = "Orta";
+            } else {
+                title = "Yüksək stress vəziyyəti";
+                desc = "Skorlarınız yüksək stress və ya emosional yüklənmə göstərir. Bu, uzunmüddətli həll edilməzsə, sağlamlığınıza təsir edə bilər. Peşəkar psixoloq dəstəyi almağınız tövsiyə olunur.";
+                statusText = "Diqqət tələb olunur";
+                stressStatus = "Yüksək";
+                sleepStatus = "Zəif";
+            }
+
+            document.getElementById('score-display').innerText = totalScore;
+            document.getElementById('result-title').innerText = title;
+            document.getElementById('result-desc').innerText = `Ümumi balınız: ${totalScore} / ${maxScore}`;
+
+            document.getElementById('res-stress').innerText = stressStatus;
+            document.getElementById('res-sleep').innerText = sleepStatus;
+            document.getElementById('res-status').innerText = statusText;
+
+            window.finalData = { score: totalScore, maxScore, title, desc, catScores: getCategoryScores() };
+
+            showScreen('screen-result');
+            initPayPalButton();
+        }
+
+        // --- PAYPAL INTEQRASIYASI ---
+        let paypalLoaded = false;
+
+        async function initPayPalButton() {
+            if (paypalLoaded) return;
+
+            try {
+                const configRes = await fetch('/api/config');
+                const config = await configRes.json();
+
+                if (config.clientId === 'your_paypal_client_id_here') {
+                    showPaymentError('PayPal henuz konfiqurasiya edilmeyib. .env faylini yoxlayin.');
+                    return;
+                }
+
+                // PayPal JS SDK-ni yuklə
+                const script = document.createElement('script');
+                script.src = `https://www.paypal.com/sdk/js?client-id=${config.clientId}&currency=USD`;
+                script.onload = () => {
+                    paypalLoaded = true;
+                    renderPayPalButton();
+                };
+                script.onerror = () => {
+                    showPaymentError('PayPal yuklenə bilmədi. İnternet bağlantınızı yoxlayın.');
+                };
+                document.head.appendChild(script);
+            } catch (err) {
+                showPaymentError('Server ilə əlaqə qurula bilmədi.');
+            }
+        }
+
+        function renderPayPalButton() {
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'gold',
+                    shape: 'rect',
+                    label: 'pay',
+                    height: 50
+                },
+
+                // 1. Sifaris yarat
+                createOrder: async () => {
+                    try {
+                        const res = await fetch('/api/orders', { method: 'POST' });
+                        const data = await res.json();
+                        if (data.error) throw new Error(data.error);
+                        return data.id;
+                    } catch (err) {
+                        showPaymentError('Sifariş yaradıla bilmədi: ' + err.message);
+                        throw err;
+                    }
+                },
+
+                // 2. Odenisi tesdiqle
+                onApprove: async (data) => {
+                    try {
+                        const res = await fetch(`/api/orders/${data.orderID}/capture`, { method: 'POST' });
+                        const result = await res.json();
+
+                        if (result.success) {
+                            unlockResults();
+                        } else {
+                            showPaymentError('Ödəniş təsdiqlənə bilmədi. Yenidən cəhd edin.');
+                        }
+                    } catch (err) {
+                        showPaymentError('Ödəniş emalı zamanı xəta baş verdi.');
+                    }
+                },
+
+                onError: (err) => {
+                    console.error('PayPal error:', err);
+                    showPaymentError('Ödəniş zamanı xəta baş verdi. Yenidən cəhd edin.');
+                },
+
+                onCancel: () => {
+                    // İstifadəçi ləğv etdi - heç nə etmirik
+                }
+            }).render('#paypal-button-container');
+        }
+
+        function showPaymentError(msg) {
+            const el = document.getElementById('payment-error');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+        }
+
+        function unlockResults() {
+            const overlay = document.getElementById('lock-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.getElementById('result-area').classList.remove('blur-content');
+
+                setTimeout(() => {
+                    updateSuccessScreen();
+                    showScreen('screen-success');
+                }, 1500);
+            }, 500);
+        }
+
+        function updateSuccessScreen() {
+            if (!window.finalData) return;
+            const d = window.finalData;
+
+            document.getElementById('final-score').innerText = `${d.score} / ${d.maxScore}`;
+            document.getElementById('final-level-title').innerText = d.title;
+            document.getElementById('final-analysis-text').innerText = d.desc;
+
+            // Kateqoriya detallari
+            const catBox = document.getElementById('category-details');
+            catBox.innerHTML = '';
+            for (const [cat, data] of Object.entries(d.catScores)) {
+                const pct = Math.round((data.total / data.max) * 100);
+                const color = pct <= 33 ? 'emerald' : pct <= 66 ? 'amber' : 'red';
+                catBox.innerHTML += `
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-slate-600">${categoryNames[cat] || cat}</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-24 h-2 bg-slate-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-${color}-500 rounded-full" style="width:${pct}%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-500 w-8 text-right">${pct}%</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Tovsiyeler
+            const recList = document.getElementById('recommendations');
+            recList.innerHTML = '';
+            const recs = getRecommendations(d.catScores);
+            recs.forEach(r => {
+                const li = document.createElement('li');
+                li.textContent = r;
+                recList.appendChild(li);
+            });
+        }
+
+        function getRecommendations(catScores) {
+            const recs = [];
+            for (const [cat, data] of Object.entries(catScores)) {
+                const pct = (data.total / data.max) * 100;
+                if (pct > 50) {
+                    switch(cat) {
+                        case 'stress':
+                            recs.push('Gündəlik 10-15 dəqiqə nəfəs məşqləri və meditasiya edin.');
+                            break;
+                        case 'sleep':
+                            recs.push('Yatmadan 1 saat əvvəl ekranlardan uzaq durun, sabit yuxu rejimi qurun.');
+                            break;
+                        case 'anxiety':
+                            recs.push('Narahatlıq hissini azaltmaq üçün fiziki hərəkət və jurnal yazmağı sınayın.');
+                            break;
+                        case 'physical':
+                            recs.push('Fiziki əlamətlər üçün həkimə müraciət edin, mütəmadi idman edin.');
+                            break;
+                        case 'social':
+                            recs.push('Kiçik sosial addımlarla başlayın — yaxın dostlarla görüşün.');
+                            break;
+                        case 'mood':
+                            recs.push('Gündəlik minnetdarlıq siyahısı yazın, sevdiyiniz fəaliyyətlərə vaxt ayırın.');
+                            break;
+                        case 'focus':
+                            recs.push('Pomodoro texnikası ilə diqqətinizi məşq edin (25 dəq iş, 5 dəq fasilə).');
+                            break;
+                        case 'self-esteem':
+                            recs.push('Hər gün bir uğurunuzu yazın, özünüzlə müsbət danışın.');
+                            break;
+                    }
+                }
+            }
+            if (recs.length === 0) {
+                recs.push('Hazırkı sağlam həyat tərzinizi davam etdirin!');
+                recs.push('Həftədə ən azı 3 dəfə 30 dəqiqə fiziki fəaliyyət göstərin.');
+            }
+            return recs;
+        }
+    </script>
+</body>
+</html>
